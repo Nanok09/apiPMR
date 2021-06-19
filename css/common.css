@@ -1,0 +1,70 @@
+body {
+  background-color: #fdedcf;
+  font-family: "Avenir Next";
+  min-height: 100vh;
+}
+
+.body-color-blue {
+  color: #123455;
+}
+
+.body-color-yellow {
+  color: #fdedcf;
+}
+
+.bg-custom-beige {
+  background-color: #fdedcf;
+}
+.bg-custom-grey {
+  background-color: #dcdcdc;
+}
+.bg-custom-blue {
+  background-color: #123455;
+}
+.bg-custom-grey {
+  background-color: #dcdcdc;
+}
+.font-custom-blue {
+  color: #123455;
+}
+.font-custom-light {
+  color: #fdedcf;
+}
+.custom-rounded-corners {
+  border-radius: 50px;
+}
+.custom-rounded-corners-small {
+  border-radius: 15px;
+}
+.bold {
+  font-weight: bold;
+}
+hr {
+  height: 1px;
+  background-color: #123455;
+}
+
+.noteContainer .star {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url("../images/Icon%20étoile.svg");
+}
+
+/* ======== HEADER ============ */
+ul.navbar-nav a:hover {
+  background-color: #153455;
+  border-radius: 20px;
+  color: #fdedcf !important;
+}
+
+#deconnexion:hover {
+  color: red !important;
+}
+/* =========== LOGIN ======== */
+#containerLogin #barre {
+  width: 30%;
+  border-top: 5px solid black;
+  left: 10%;
+}
+/* ============ FOOTER ========== */
