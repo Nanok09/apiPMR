@@ -190,8 +190,23 @@ if (valider("request")) {
 
 			case 'GET_recipes_ingredients':
 
+				if ($idEntite1)
+				if ($idEntite2) {
+					// GET /api/recipes/<id>/ingredients/<id>
+					$data["recipe_quantity"] = getRecipeQuantity($idEntite2, $idEntite1);
+					$data["success"] = true;
+					$data["status"] = 200;
+				} else {
+					// GET /api/recipes/<id>/ingredients
+					$data["recipe_quantity"] = getRecipeQuantities($idEntite1);
+					$data["success"] = true;
+					$data["status"] = 200;
 
+				}
 			break;
+
+
+
 
 			case 'POST_users' : 
 				// POST /api/users?pseudo=&pass=...
@@ -265,6 +280,22 @@ if (valider("request")) {
 						$data["status"] = 201;
 					}
 
+			break;
+
+			case 'POST_recipes_ingredients':
+
+				// POST /api/recipes/1/ingredients/2?quantity=...
+				if ($idEntite1)
+				if ($idEntite2)
+				if ($quantity = valider("quantity"))
+				if ($unit = valider("unit")){
+					mkRecipeQuantity($idEntite2, $idEntite1, $unit, $quantity);
+					$data["ingredient"] = getRecipeQuantity($idEntite2, $idEntite1);
+					$data["success"] = true;
+					$data["status"] = 201;
+
+
+				}
 			break;
 
 
@@ -370,6 +401,22 @@ if (valider("request")) {
 
 			break;
 
+			case 'PUT_recipes_ingredients':
+
+
+				// POST /api/recipes/1/ingredients/2?quantity=...
+				if ($idEntite1)
+				if ($idEntite2)
+				if ($quantity = valider("quantity"))
+				if ($unit = valider("unit"))
+				if (chgRecipeQuantity($idEntite2, $idEntite1, $unit, $quantity))
+				{
+					$data["ingredient"] = getRecipeQuantity($idEntite2, $idEntite1);
+					$data["success"] = true;
+					$data["status"] = 201;
+				}
+			break;
+
 
 
 			case 'DELETE_users' : 
@@ -447,8 +494,16 @@ if (valider("request")) {
 						$data["status"] = 200;
 					}
 				}
+			break;
 
-
+			case 'DELETE_recipes_ingredients':
+				//DELETE /api/recipes/1/ingredients/1
+				if ($idEntite1)
+				if ($idEntite2)
+				if (rmRecipeQuantity($idEntite2, $idEntite1)){
+					$data["success"] = true;
+					$data["status"] = 200;
+				}
 
 			break;
 		} // switch(action)

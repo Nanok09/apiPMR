@@ -137,8 +137,8 @@ function getStep($id, $idRecipe) {
 }
 
 
-function rmStep($id,$idArticle) {
-	$SQL = "DELETE FROM step WHERE stepNumber='$id' AND idRecipe='$idArticle'";
+function rmStep($id,$idRecipe) {
+	$SQL = "DELETE FROM step WHERE stepNumber='$id' AND idRecipe='$idRecipe'";
 	return SQLDelete($SQL);
 }
 
@@ -180,6 +180,36 @@ function chgIngredient($id,$name) {
 }
 function rmIngredient($id) {
 	$SQL = "DELETE FROM ingredient WHERE id='$id'";
+	return SQLDelete($SQL);
+}
+
+function getRecipeQuantity($idIngredient, $idRecipe){
+	$SQL = "SELECT rq.unit,rq.quantity,r.name, i.name
+	FROM ingredient AS i  INNER JOIN recipe_quantity AS rq ON rq.idIngredient=i.id INNER JOIN recipe as r ON rq.idRecipe=r.id 
+	WHERE rq.idIngredient='$idIngredient' AND rq.idRecipe='$idRecipe'";
+
+	$rs = parcoursRs(SQLSelect($SQL));
+	if (count($rs)) return $rs[0];
+}
+function getRecipeQuantities($idRecipe){
+	$SQL = "SELECT rq.unit,rq.quantity,r.name,i.name
+	FROM ingredient AS i  INNER JOIN recipe_quantity AS rq ON rq.idIngredient=i.id INNER JOIN recipe as r ON rq.idRecipe=r.id 
+	WHERE rq.idRecipe='$idRecipe'";
+	return parcoursRs(SQLSelect($SQL));}
+
+function mkRecipeQuantity($idIngredient, $idRecipe, $unit, $quantity){
+	$SQL = "INSERT INTO recipe_quantity(idIngredient,idRecipe,unit, quantity) 
+				VALUES('$idIngredient','$idRecipe','$unit', '$quantity')";
+	return SQLInsert($SQL);
+}
+function chgRecipeQuantity($idIngredient, $idRecipe, $unit, $quantity){
+	$SQL = "UPDATE recipe_quantity SET quantity='$quantity', unit='$unit' WHERE idIngredient='$idIngredient'";
+	$SQL .=  " AND idRecipe='$idRecipe'";
+	SQLUpdate($SQL);
+	return 1;
+}
+function rmRecipeQuantity($idIngredient, $idRecipe){
+	$SQL = "DELETE FROM recipe_quantity WHERE idIngredient='$idIngredient' AND idRecipe='$idRecipe'";
 	return SQLDelete($SQL);
 }
 
